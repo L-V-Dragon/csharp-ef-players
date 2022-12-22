@@ -26,6 +26,6 @@ namespace csharp_ef_players
         [Required]
         public string Colors { get; set; }
 
-        public List<Player> Players { get; set; }
+        public List<Player> Players { get; set; } = new List<Player>();
     }
 }

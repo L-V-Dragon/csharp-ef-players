@@ -7,9 +7,23 @@ using (PlayerContext db = new PlayerContext())
     int numeroPartiteGiocate = random.Next(1, 101);
     int numeroPartiteVinte = random.Next(1, numeroPartiteGiocate + 1);
 
+    Team team = new Team { NameTeam = "Manchester City", City = "Manchester", Coach = "Guardiola", Colors = "Light Blue and White"};
 
-    Player newPlayer = new Player { Name = "Kylian", Surname = "Mbappe", score = voto, GamePlayed = numeroPartiteGiocate, GameWon = numeroPartiteVinte};
-    /*db.Add(newPlayer);
+    Player newPlayer1 = new Player { Name = "Erling", Surname = "Haaland", score = voto, GamePlayed = numeroPartiteGiocate, GameWon = numeroPartiteVinte, Team = team };
+    
+    Player newPlayer2 = new Player { Name = "Philip", Surname = "Foden", score = voto, GamePlayed = numeroPartiteGiocate, GameWon = numeroPartiteVinte, Team = team };
+    
+    Player newPlayer3 = new Player { Name = "Kevin", Surname = "De Bruyne", score = voto, GamePlayed = numeroPartiteGiocate, GameWon = numeroPartiteVinte, Team = team };
+
+    db.Add(newPlayer1);
+    db.Add(newPlayer2);
+    db.Add(newPlayer3);
+    db.Add(team);
+
+    db.SaveChanges();
+
+    /*Player newPlayer = new Player { Name = "Kylian", Surname = "Mbappe", score = voto, GamePlayed = numeroPartiteGiocate, GameWon = numeroPartiteVinte , Team = team};
+    db.Add(newPlayer);
     db.SaveChanges();*/
 
     /*List<Player> Players = db.Players.OrderBy(Player => Player.Name).ToList<Player>();*/
