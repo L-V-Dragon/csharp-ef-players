@@ -18,8 +18,9 @@ namespace csharp_ef_players
 
         [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
-        public int score { get; set; }
+        public double score { get; set; }
         public int GamePlayed { get; set; }
         public int GameWon { get; set; }
     }
