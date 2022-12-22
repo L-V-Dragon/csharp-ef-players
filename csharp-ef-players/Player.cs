@@ -23,5 +23,7 @@ namespace csharp_ef_players
         public double score { get; set; }
         public int GamePlayed { get; set; }
         public int GameWon { get; set; }
+
+        public Team Team { get; set; }
     }
 }

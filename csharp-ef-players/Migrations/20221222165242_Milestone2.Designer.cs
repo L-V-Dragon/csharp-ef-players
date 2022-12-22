@@ -11,8 +11,8 @@ using csharp_ef_players;
 namespace csharpefplayers.Migrations
 {
     [DbContext(typeof(PlayerContext))]
-    [Migration("20221222142013_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221222165242_Milestone2")]
+    partial class Milestone2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,19 +42,65 @@ namespace csharpefplayers.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameTeam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("score")
-                        .HasColumnType("int");
+                    b.Property<string>("TeamNameTeam")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("score")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
+                    b.HasIndex("TeamNameTeam");
+
                     b.ToTable("Player");
+                });
+
+            modelBuilder.Entity("csharp_ef_players.Team", b =>
+                {
+                    b.Property<string>("NameTeam")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Coach")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Colors")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NameTeam");
+
+                    b.HasIndex("NameTeam")
+                        .IsUnique();
+
+                    b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("csharp_ef_players.Player", b =>
+                {
+                    b.HasOne("csharp_ef_players.Team", null)
+                        .WithMany("Players")
+                        .HasForeignKey("TeamNameTeam");
+                });
+
+            modelBuilder.Entity("csharp_ef_players.Team", b =>
+                {
+                    b.Navigation("Players");
                 });
 #pragma warning restore 612, 618
         }
