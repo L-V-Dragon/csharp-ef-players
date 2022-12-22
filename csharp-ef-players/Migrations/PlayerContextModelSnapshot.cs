@@ -39,16 +39,12 @@ namespace csharpefplayers.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameTeam")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeamNameTeam")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TeamID")
+                        .HasColumnType("int");
 
                     b.Property<double>("score")
                         .HasColumnType("float");
@@ -58,15 +54,18 @@ namespace csharpefplayers.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("TeamNameTeam");
+                    b.HasIndex("TeamID");
 
                     b.ToTable("Player");
                 });
 
             modelBuilder.Entity("csharp_ef_players.Team", b =>
                 {
-                    b.Property<string>("NameTeam")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TeamID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamID"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -80,7 +79,11 @@ namespace csharpefplayers.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("NameTeam");
+                    b.Property<string>("NameTeam")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TeamID");
 
                     b.HasIndex("NameTeam")
                         .IsUnique();
@@ -90,9 +93,13 @@ namespace csharpefplayers.Migrations
 
             modelBuilder.Entity("csharp_ef_players.Player", b =>
                 {
-                    b.HasOne("csharp_ef_players.Team", null)
+                    b.HasOne("csharp_ef_players.Team", "Team")
                         .WithMany("Players")
-                        .HasForeignKey("TeamNameTeam");
+                        .HasForeignKey("TeamID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("csharp_ef_players.Team", b =>

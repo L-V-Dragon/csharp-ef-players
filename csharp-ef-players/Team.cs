@@ -14,8 +14,11 @@ namespace csharp_ef_players
     public class Team
     {
         [Key]
-        public string NameTeam { get; set; }
 
+        public int TeamID { get; set; }
+
+        [Required]
+        public string NameTeam { get; set; }
         [Required]
         public string City { get; set; }
         [Required]

@@ -13,7 +13,7 @@ namespace csharp_ef_players
         public DbSet<Team> Teams { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost;Database=EFPlayersDB;" +
+            optionsBuilder.UseSqlServer("Data Source=localhost;Database=EFPlayerDB;" +
             "Integrated Security=True;TrustServerCertificate=True");
         }
     }

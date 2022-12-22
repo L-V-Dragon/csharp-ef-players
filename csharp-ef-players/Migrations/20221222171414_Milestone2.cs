@@ -14,6 +14,8 @@ namespace csharpefplayers.Migrations
                 name: "Teams",
                 columns: table => new
                 {
+                    TeamID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NameTeam = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Coach = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -21,7 +23,7 @@ namespace csharpefplayers.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Teams", x => x.NameTeam);
+                    table.PrimaryKey("PK_Teams", x => x.TeamID);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,17 +37,17 @@ namespace csharpefplayers.Migrations
                     score = table.Column<double>(type: "float", nullable: false),
                     GamePlayed = table.Column<int>(type: "int", nullable: false),
                     GameWon = table.Column<int>(type: "int", nullable: false),
-                    NameTeam = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TeamNameTeam = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    TeamID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Player", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Player_Teams_TeamNameTeam",
-                        column: x => x.TeamNameTeam,
+                        name: "FK_Player_Teams_TeamID",
+                        column: x => x.TeamID,
                         principalTable: "Teams",
-                        principalColumn: "NameTeam");
+                        principalColumn: "TeamID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -55,9 +57,9 @@ namespace csharpefplayers.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Player_TeamNameTeam",
+                name: "IX_Player_TeamID",
                 table: "Player",
-                column: "TeamNameTeam");
+                column: "TeamID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_NameTeam",
